@@ -21,8 +21,8 @@ class TimelinePost(Model):
         
 print(mydb)
 
-mydb.connect()
 mydb.create_tables([TimelinePost])
+mydb.connect()
 
 @app.route('/')
 def index():
