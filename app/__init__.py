@@ -18,11 +18,11 @@ class TimelinePost(Model):
 
     class Meta:
         database = mydb
-        
+
 print(mydb)
 
-mydb.create_tables([TimelinePost])
 mydb.connect()
+mydb.create_tables([TimelinePost])
 
 @app.route('/')
 def index():
@@ -39,6 +39,6 @@ def post_time_line_post():
 @app.route('/api/timeline_post', methods=['GET'])
 def get_time_line_post():
     return {
-        'timeline_posts': [            model_to_dict(p) for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())        ]
+        'timeline_posts': [model_to_dict(p) for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())]
     }
 
