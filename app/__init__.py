@@ -21,8 +21,6 @@ class TimelinePost(Model):
 
 mydb.connect()
 mydb.create_tables([TimelinePost])
-#mydb.connect()
-print(mydb)
 
 @app.route('/')
 def index():
@@ -41,8 +39,4 @@ def get_time_line_post():
     return {
         'timeline_posts': [model_to_dict(p) for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())]
     }
-#if __name__ == '__main__':
-#    mydb.connect()
-#    mydb.create_tables([TimelinePost])
-#    app.run()
  
