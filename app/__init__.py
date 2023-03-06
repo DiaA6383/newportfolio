@@ -19,9 +19,8 @@ class TimelinePost(Model):
     class Meta:
         database = mydb
 
-#mydb.connect()
 #mydb.create_tables([TimelinePost])
-
+#mydb.connect()
 print(mydb)
 
 @app.route('/')
@@ -44,5 +43,6 @@ def get_time_line_post():
 if __name__ == '__main__':
     mydb.connect()
     mydb.create_tables([TimelinePost])
-    app.run() 
+    app.run()
+ 
 
