@@ -19,7 +19,8 @@ class TimelinePost(Model):
     class Meta:
         database = mydb
 
-#mydb.create_tables([TimelinePost])
+mydb.connect()
+mydb.create_tables([TimelinePost])
 #mydb.connect()
 print(mydb)
 
@@ -40,9 +41,8 @@ def get_time_line_post():
     return {
         'timeline_posts': [model_to_dict(p) for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())]
     }
-if __name__ == '__main__':
-    mydb.connect()
-    mydb.create_tables([TimelinePost])
-    app.run()
+#if __name__ == '__main__':
+#    mydb.connect()
+#    mydb.create_tables([TimelinePost])
+#    app.run()
  
-
