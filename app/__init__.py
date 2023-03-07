@@ -42,7 +42,7 @@ def get_time_line_post():
     return {
         'timeline_posts': [model_to_dict(p) for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())]
     }
-    #this is just how it was put 
-@app.route('/timeline_post')
+    #this is just how it was put
+@app.route('/timeline')
 def timeline_post():
     return render_template('timeline.html', title = "Timeline")
