@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<!-- timeline.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Timeline</h1>
+
+  <!-- Add a form to create a new timeline post -->
+  <form id="timeline-form">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name">
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email">
+    </div>
+    <div>
+      <label for="content">Content</label>
+      <textarea id="content" name="content"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Display all timeline posts in descending order -->
+  <div id="timeline-posts">
+    {% for post in timeline_posts %}
+      <div>
+        <h3>{{ post.name }}</h3>
+        <p>{{ post.content }}</p>
+        <p>{{ post.email }}</p>
+        <p>{{ post.created_at }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    const form = document.querySelector('#timeline-form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const name = form.elements.name.value;
+      const email = form.elements.email.value;
+      const content = form.elements.content.value;
+      const response = await fetch('/api/timeline_post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `name=${name}&email=${email}&content=${content}`
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const post = document.createElement('div');
+        post.innerHTML = `
+          <h3>${data.name}</h3>
+          <p>${data.content}</p>
+          <p>${data.email}</p>
+          <p>${data.created_at}</p>
+        `;
+        document.querySelector('#timeline-posts').prepend(post);
+      }
+    });
+  </script>
+{% endblock %}
+
