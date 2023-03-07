@@ -18,9 +18,12 @@ class TimelinePost(Model):
 
     class Meta:
         database = mydb
+if __name__ == "__main__":
+    mydb.initialize()
+    mydb.connect
 
-mydb.connect()
-mydb.create_tables([TimelinePost])
+#mydb.connect()
+#mydb.create_tables([TimelinePost])
 
 @app.route('/')
 def index():
