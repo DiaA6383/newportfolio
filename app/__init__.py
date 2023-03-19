@@ -2,6 +2,7 @@
 from peewee import *
 from datetime import datetime
 import os
+import re
 from playhouse.shortcuts import model_to_dict
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
@@ -27,9 +28,7 @@ class TimelinePost(Model):
 
 # Connect to the database if this script is being run as the main program
 if __name__ == "__main__":
-    mydb.initialize()
-    mydb.connect
-
+    initialize_app()
 # Define a route for the home page
 @app.route('/')
 def index():
@@ -38,6 +37,20 @@ def index():
 # Define a route for posting a new timeline post
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
+    name = request.form.get('name', '').strip()
+    email = request.form.get('email', '').strip()
+    content = request.form.get('content', '').strip()
+
+    if not name:
+        return "Invalid name", 400
+
+    if not content:
+        return "Invalid content", 400
+
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, email):
+        return "Invalid email", 400
+
     name = request.form['name']
     email = request.form['email']
     content = request.form['content']
@@ -55,15 +68,25 @@ def get_time_line_post():
 @app.route('/timeline')
 def timeline_post():
     return render_template('timeline.html', title="Timeline")
-'''
-if os.getenv("TESTING") == "true":
-    print("Running in test mode")
-    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
-else:
-    mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
-    user=os.getenv("MYSQL_USER"),
-    password = os.getenv("MYSQL_PASSWORD"),
-    host = os.getenv("MYSQL_HOST"),
-    port=3306
-    )
-'''    
+
+def initialize_database():
+    if os.getenv("TESTING") == "true":
+        print("Running in test mode")
+        test_db = SqliteDatabase(':memory:')
+        test_db.bind([TimelinePost], bind_refs=False, bind_backrefs=False)
+        test_db.connect()
+        test_db.create_tables([TimelinePost], safe=True)
+    else:
+        mydb.init(os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        port=3306
+        )
+
+        # Connect to the database and create the tables if they don't exist
+        mydb.connect()
+        mydb.create_tables([TimelinePost], safe=True)
+def initialize_app():
+    initialize_database()
+    app.run
