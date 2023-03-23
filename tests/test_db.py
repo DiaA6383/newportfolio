@@ -1,14 +1,14 @@
 # Import necessary modules
 import unittest
 import requests
-from newportfolio.app import TimelinePost  # Import the TimelinePost model
+from app import TimelinePost  # Import the TimelinePost model
 from peewee import *
 
 # Define a list of all model classes used in the tests
 MODELS = [TimelinePost]
 
 # Create an in-memory SQLite database for testing
-test_db = SqliteDatabase(':memory:')
+test_db = SqliteDatabase(":memory:")
 
 # Define a test case class that inherits from unittest.TestCase
 class TestTimelinePost(unittest.TestCase):
@@ -33,8 +33,12 @@ class TestTimelinePost(unittest.TestCase):
     # Define a test method to check the TimelinePost model
     def test_timeline_post(self):
         # Create two TimelinePost instances with some initial data
-        first_post = TimelinePost.create(name='John Doe', email='john@example.com', content="Hello world, I'm John!")
-        second_post = TimelinePost.create(name='Jane Doe', email='jane@example.com', content="Hello world, I'm Jane!")
+        first_post = TimelinePost.create(
+            name="John Doe", email="john@example.com", content="Hello world, I'm John!"
+        )
+        second_post = TimelinePost.create(
+            name="Jane Doe", email="jane@example.com", content="Hello world, I'm Jane!"
+        )
 
         # Assert that the id of the first post is 1
         assert first_post.id == 1
