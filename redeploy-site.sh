@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd newportoflio/
 # Fetch latest changes from main branch and reset to latest commit
 git fetch && git reset origin/main --hard
 
