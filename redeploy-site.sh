@@ -15,3 +15,5 @@ systemctl restart myportfolio
 
 echo "Site redeployed and myportfolio service restarted"
 
+
+
