@@ -6,8 +6,7 @@
 source /Users/alejandrodiaz/newportfolio/env/bin/activate
 
 pip install -r requirements.txt
-pip install requests
-#install the requirements.txt file
+pip install requests  # Add this line to install requests
 # Run the unittest discover command to find and run all tests in the 'tests' directory.
 # The '-v' flag enables verbose output, providing more detailed information about the tests.
 python -m unittest discover -v tests/ #run the tests!
