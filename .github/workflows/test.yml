@@ -1,4 +1,5 @@
 name: Run Tests
+
 on:
   push:
     branches:
@@ -23,11 +24,11 @@ jobs:
         with:
           python-version: '3.6.8'
 
-      - name: Setup Python Virtual Environment
-        run: python -m venv python3-virtualenv #CHECK IF THIS IS TRUE!
-
-      - name: Install Dependencies
-        run: python3-virtualenv/bin/pip install -r requirements.txt 
+      - name: Install Python Dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
 
       - name: Run Tests
         run: ./run_tests.sh
