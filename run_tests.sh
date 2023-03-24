@@ -9,5 +9,5 @@ pip install -r requirements.txt
 #install the requirements.txt file
 # Run the unittest discover command to find and run all tests in the 'tests' directory.
 # The '-v' flag enables verbose output, providing more detailed information about the tests.
-python -m unittest discover -v tests/
+python -m unittest discover -v tests/ #run the tests
 
