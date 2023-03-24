@@ -1,7 +1,5 @@
-# Name the workflow
 name: Run Tests
 
-# Trigger the workflow on push and pull requests to the main branch
 on:
   push:
     branches:
@@ -10,37 +8,27 @@ on:
     branches:
       - main
 
-# Define the job to run
 jobs:
   test:
-    # Use the Ubuntu 20.04 runner
     runs-on: ubuntu-20.04
-    # Name the job
     name: Run Tests
-    # Set an environment variable to indicate that we're running tests
     env:
       TESTING: true
 
-    # Define the steps to run
     steps: 
-      # Check out the repository code
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # Set up Python on the runner
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.6.8'
 
-      # Create a virtual environment for the Python dependencies
       - name: Setup Python Virtual Environment
-        run: python -m venv --prompt=python3-virtualenv venv
+        run: python -m venv python3-virtualenv #CHECK IF THIS IS TRUE!
 
-      # Install the Python dependencies from requirements.txt
       - name: Install Dependencies
-        run: source venv/bin/activate && pip install -r requirements.txt 
+        run: python3-virtualenv/bin/pip install -r requirements.txt 
 
-      # Run the tests using the run_tests.sh script
       - name: Run Tests
-        run: source venv/bin/activate && ./run_tests.sh
+        run: ./run_tests.sh
