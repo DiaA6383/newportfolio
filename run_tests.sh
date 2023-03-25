@@ -5,7 +5,7 @@
 # in this case, the 'activate' script for the virtual environment.
 source /Users/alejandrodiaz/newportfolio/env/bin/activate
 
-pip install -r requirements.txt
+pip install -r requirements.txt -q
 pip install requests  # Add this line to install requests
 # Run the unittest discover command to find and run all tests in the 'tests' directory.
 # The '-v' flag enables verbose output, providing more detailed information about the tests.
