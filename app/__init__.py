@@ -39,7 +39,7 @@ if __name__ == "__main__":
 # Define a route for the home page
 @app.route("/")
 def index():
-    return render_template("index.html", title="MLH Fellow", url=os.getenv("URL"))
+    return render_template("index.html", title="Alejandro Diaz", url=os.getenv("URL"))
 
 
 # Define a route for posting a new timeline post
