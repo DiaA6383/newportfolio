@@ -19,7 +19,7 @@ class AppTestCase(unittest.TestCase):
         response = self.client.get("/")
         assert response.status_code == 200
         html = response.get_data(as_text=True)
-        assert "<title>MLH Fellow</title>" in html
+        assert "<title>Alejandro Diaz</title>" in html
 
     # assert "<h1>MLH Fellow</h1>" in html
 
